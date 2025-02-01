@@ -1,8 +1,16 @@
-import 'package:ayurveda_app/splash_screen.dart';
+import 'package:ayurveda_app/controller/providers/patient_provider.dart';
+import 'package:ayurveda_app/views/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+//  runApp(const MyApp());
+ runApp(
+    ChangeNotifierProvider(
+      create: (_) => PatientProvider(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

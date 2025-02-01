@@ -1,6 +1,19 @@
+import 'package:ayurveda_app/controller/providers/patient_provider.dart';
+import 'package:ayurveda_app/views/screens/patients_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,7 +21,8 @@ class LoginScreen extends StatelessWidget {
         children: [
           Image.asset(
             'assets/images/login_bg.png',
-            height: 217,  fit: BoxFit.fitWidth,
+            height: 217,
+            fit: BoxFit.fitWidth,
           ),
           SingleChildScrollView(
             child: Padding(
@@ -36,6 +50,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
                   TextField(
+                    controller: usernameController,
                     decoration: InputDecoration(
                       labelText: "Email",
                       hintText: "Enter your email",
@@ -46,6 +61,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   TextField(
+                    controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: "Password",
@@ -58,8 +74,33 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(height: 30),
                   Center(
                     child: ElevatedButton(
+                      // onPressed: () async {
+                      //   try {
+                      //     await context.read<PatientProvider>().login(
+                      //           usernameController.text,
+                      //           passwordController.text,
+                      //         );
+
+                      //     ScaffoldMessenger.of(context)
+                      //         .showSnackBar(SnackBar(content: Text("Welcome")));
+
+                      //     Navigator.pushReplacement(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (_) => PatientsListScreen()),
+                      //     );
+                      //   } catch (e) {
+                      //     ScaffoldMessenger.of(context).showSnackBar(
+                      //       SnackBar(content: Text('Login failed: $e')),
+                      //     );
+                      //   }
+                      // },
                       onPressed: () {
-                        // Login button action
+                         Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PatientsListScreen(),
+                              ));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -81,7 +122,8 @@ class LoginScreen extends StatelessWidget {
                   Center(
                     child: Text.rich(
                       TextSpan(
-                        text: "By creating or logging into an account you are agreeing\nwith our ",
+                        text:
+                            "By creating or logging into an account you are agreeing\nwith our ",
                         style: TextStyle(fontSize: 12, color: Colors.black54),
                         children: [
                           TextSpan(
@@ -117,3 +159,57 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
+// import '../../controller/providers/patient_provider.dart';
+// import 'patients_list_screen.dart';
+
+// class LoginScreen extends StatelessWidget {
+//   final TextEditingController usernameController = TextEditingController();
+//   final TextEditingController passwordController = TextEditingController();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Padding(
+//         padding: const EdgeInsets.all(16.0),
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             TextField(
+//               controller: usernameController,
+//               decoration: InputDecoration(labelText: 'Username'),
+//             ),
+//             const SizedBox(height: 16),
+//             TextField(
+//               controller: passwordController,
+//               obscureText: true,
+//               decoration: InputDecoration(labelText: 'Password'),
+//             ),
+//             const SizedBox(height: 32),
+//             ElevatedButton(
+//               onPressed: () async {
+//                 try {
+//                   await context.read<PatientProvider>().login(
+//                         usernameController.text,
+//                         passwordController.text,
+//                       );
+//                   // Navigator.pushReplacement(
+//                   //   context,
+//                   //   MaterialPageRoute(builder: (_) => PatientsListScreen()),
+//                   // );
+//                 } catch (e) {
+//                   ScaffoldMessenger.of(context).showSnackBar(
+//                     SnackBar(content: Text('Login failed: $e')),
+//                   );
+//                 }
+//               },
+//               child: const Text('Login'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
